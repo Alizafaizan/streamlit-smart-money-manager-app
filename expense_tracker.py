@@ -230,7 +230,7 @@ def edit_expense(index, date, category, amount, description, transaction_type):
 def login_page():
     st.title("💰 Smart Money Manager")
     
-    tab1, tab2 = st.tabs(["🔐 Login", "📝 Register"])
+    tab1, tab2 = st.tabs(["🔐 Login", "📝 SignUp"])
     
     with tab1:
         st.subheader("Login")
@@ -286,7 +286,7 @@ else:
         st.markdown("""
             <div style="background: linear-gradient(135deg, #1f77b4, #2c3e50); 
                         padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                <h2 style="color: white; margin: 0;">Transaction Manager</h2>
+                <h2 style="color: white; margin: 1;">Transaction Manager</h2>
             </div>
         """, unsafe_allow_html=True)
         
