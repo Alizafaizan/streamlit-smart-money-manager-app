@@ -36,9 +36,18 @@ st.markdown("""
     .stButton>button:hover {
         background-color: #2c3e50;
     }
-    .stTextInput>div>div>input {
+    /* Input fields styling */
+    .stTextInput>div>div>input, 
+    .stNumberInput>div>div>input,
+    .stDateInput>div>div>input,
+    .stSelectbox>div>div>div {
         background-color: #f8f9fa;
+        color: #2c3e50 !important;
         border-radius: 5px;
+    }
+    /* Dropdown text color */
+    .stSelectbox>div>div>div>div {
+        color: #2c3e50 !important;
     }
     div[data-testid="stMetricValue"] {
         font-size: 24px;
@@ -87,6 +96,16 @@ st.markdown("""
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    /* Dark mode adjustments */
+    @media (prefers-color-scheme: dark) {
+        .stTextInput>div>div>input, 
+        .stNumberInput>div>div>input,
+        .stDateInput>div>div>input,
+        .stSelectbox>div>div>div {
+            color: #2c3e50 !important;
+            background-color: #f8f9fa !important;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -228,12 +247,12 @@ def login_page():
                 st.error("Invalid username or password")
     
     with tab2:
-        st.subheader("Register")
+        st.subheader("SignUp")
         new_username = st.text_input("Username", key="register_username")
         new_password = st.text_input("Password", type="password", key="register_password")
         confirm_password = st.text_input("Confirm Password", type="password")
         
-        if st.button("Register"):
+        if st.button("SignUp"):
             if new_password != confirm_password:
                 st.error("Passwords do not match!")
             elif len(new_password) < 6:
