@@ -36,4 +36,14 @@ def authenticate(username, password):
     config = load_config()
     if username in config['users']:
         return check_password(password, config['users'][username])
-    return False 
+    return False
+
+def get_offline_users():
+    """Get list of users who have local data"""
+    data_dir = Path("user_data")
+    users = []
+    if data_dir.exists():
+        for file in data_dir.glob("*_data.json"):
+            username = file.stem.replace("_data", "")
+            users.append(username)
+    return users 
