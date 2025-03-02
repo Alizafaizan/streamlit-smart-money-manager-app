@@ -50,7 +50,7 @@ st.markdown("""
     }
 
     .stApp {
-        background: #f8f9fa;
+        background:rgb(17, 18, 18);
     }
 
     /* Container styling */
