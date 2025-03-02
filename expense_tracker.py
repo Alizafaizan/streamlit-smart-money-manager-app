@@ -156,8 +156,10 @@ st.markdown("""
         .stTextInput>div>div>input, 
         .stNumberInput>div>div>input,
         .stDateInput>div>div>input,
-        .stSelectbox>div>div>div {
-            font-size: 14px !important;
+        .stSelectbox>div>div>div ,
+         .metric-label,
+        .metric-value {
+            color: #2c3e50 !important;
         }
     }
 
