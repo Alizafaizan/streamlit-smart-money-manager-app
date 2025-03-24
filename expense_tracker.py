@@ -14,6 +14,18 @@ from users import init_users, create_user, authenticate
 from local_storage import save_local_data, load_local_data, init_local_storage
 import plotly.graph_objects as go
 
+# Check if requirements.txt exists, if not create one
+if not os.path.exists('requirements.txt'):
+    with open('requirements.txt', 'w') as f:
+        f.write("""streamlit>=1.10.0
+pandas>=1.3.0
+plotly>=5.3.1
+fpdf>=1.7.2
+reportlab>=3.6.0
+pyyaml>=6.0
+bcrypt>=3.2.0
+""")
+
 # Helper functions
 def get_transaction_types():
     return ["Expense", "Additional Income"]
