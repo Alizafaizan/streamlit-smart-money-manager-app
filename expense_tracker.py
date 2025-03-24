@@ -156,10 +156,59 @@ st.markdown("""
         .stTextInput>div>div>input, 
         .stNumberInput>div>div>input,
         .stDateInput>div>div>input,
-        .stSelectbox>div>div>div ,
+        .stSelectbox>div>div>div,
+        .stRadio>div,
+        .stButton>button,
+        p, h1, h2, h3, h4, h5, h6,
+        div[data-testid="stMarkdownContainer"] p,
          .metric-label,
-        .metric-value {
+        .metric-value,
+        .stTab > div > div > div > div,
+        .stTab [data-testid="stMarkdownContainer"],
+        .stInfo > div,
+        .stSuccess > div {
             color: #2c3e50 !important;
+            font-weight: normal !important;
+            background-color: transparent !important;
+        }
+        
+        /* Override dark mode text color */
+        .stApp {
+            color: #2c3e50 !important;
+        }
+        
+        /* Make metric cards stand out more */
+        .metric-card {
+            background: white !important;
+            padding: 1rem !important;
+            margin: 0.5rem 0 !important;
+        }
+        
+        /* Fix for radio buttons */
+        .stRadio > div {
+            background-color: white !important;
+            border-radius: 5px !important;
+            padding: 10px !important;
+        }
+        
+        /* Fix for radio button labels */
+        .stRadio label {
+            color: #2c3e50 !important;
+            font-weight: normal !important;
+        }
+        
+        /* Make card backgrounds white for contrast */
+        div.element-container {
+            background-color: white !important;
+            border-radius: 10px !important;
+            padding: 10px !important;
+            margin-bottom: 10px !important;
+        }
+        
+        /* Fix inputs */
+        input, textarea, select {
+            color: #2c3e50 !important;
+            background-color: white !important;
         }
     }
 
