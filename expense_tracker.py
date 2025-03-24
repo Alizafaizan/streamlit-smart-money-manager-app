@@ -54,375 +54,231 @@ st.set_page_config(
 # Custom CSS for better appearance
 st.markdown("""
     <style>
-    /* Main container and general styling */
-    .main {
-        padding: 1rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .stApp {
-        background:rgb(17, 18, 18);
-    }
-
-    /* Container styling */
-    .element-container, 
-    .stTextInput, 
-    .stNumberInput, 
-    .stDateInput, 
-    .stSelectbox,
-    [data-testid="stForm"] {
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 0 1rem 0 !important;
-    }
-
-    /* Input fields styling */
-    .stTextInput>div>div>input, 
-    .stNumberInput>div>div>input,
-    .stDateInput>div>div>input,
-    .stSelectbox>div>div>div {
-        width: 100% !important;
-        background-color: #ffffff !important;
-        color: #2c3e50 !important;
-        border-radius: 10px !important;
-        padding: 0.5rem 1rem !important;
-        border: 2px solid #e0e0e0 !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Gradient header containers */
-    div[data-testid="stHeader"],
-    div.gradient-header {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        margin: 0 0 1.5rem 0 !important;
-        padding: 1rem !important;
-        background: linear-gradient(135deg, #1f77b4, #2c3e50) !important;
-        border-radius: 10px !important;
-        overflow: hidden !important;
-    }
-
-    /* Card containers */
-    .card-container {
-        background: white !important;
-        border-radius: 15px !important;
-        padding: 1.5rem !important;
-        margin-bottom: 1.5rem !important;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    /* Sidebar styling */
-    .css-1d391kg, .css-12oz5g7 {
-        background: white !important;
-        padding: 2rem 1rem !important;
-        width: 100% !important;
-    }
-
-    /* Grid layout for metrics */
-    .metrics-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        margin: 1rem 0;
+    /* Main color theme */
+    :root {
+        --primary: #000000;
+        --secondary: #333333;
+        --light: #FFFFFF;
+        --gray: #666666;
+        --light-gray: #F5F5F5;
+        --border: #E0E0E0;
     }
     
+    /* Page background */
+    .stApp {
+        background: var(--light) !important;
+    }
+    
+    /* Header styling */
+    h1 {
+        color: var(--primary) !important;
+        font-weight: 700 !important;
+        background: var(--light) !important;
+        padding: 1rem 0 !important;
+        margin: 0 0 1rem 0 !important;
+        border-bottom: 2px solid var(--primary) !important;
+    }
+    
+    h2, h3, h4 {
+        color: var(--primary) !important;
+        font-weight: 600 !important;
+        margin: 0.75rem 0 !important;
+    }
+    
+    /* Section headers */
+    div[style*="background: linear-gradient"] {
+        background: var(--light) !important;
+        border-bottom: 2px solid var(--primary) !important;
+        padding: 0.75rem 0 !important;
+        margin: 1rem 0 !important;
+    }
+    
+    div[style*="background: linear-gradient"] h2 {
+        color: var(--primary) !important;
+        margin: 0 !important;
+    }
+    
+    /* Metric cards */
     .metric-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        background: var(--light) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 6px !important;
+        padding: 0.75rem !important;
+        margin: 0.5rem 0 !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
     }
     
     .metric-label {
-        color: #1f77b4;
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
+        color: var(--secondary) !important;
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.25rem !important;
     }
     
-    .metric-value {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
+    .income-value { color: var(--primary) !important; font-weight: 600 !important; }
+    .expense-value { color: var(--primary) !important; font-weight: 600 !important; }
+    .balance-value { color: var(--primary) !important; font-weight: 600 !important; }
+    .savings-value { color: var(--primary) !important; font-weight: 600 !important; }
     
-    .income-value { color: #2ecc71; }
-    .expense-value { color: #e74c3c; }
-    .balance-value { color: #3498db; }
-    .savings-value { color: #9b59b6; }
-
-    /* Responsive adjustments */
-    @media screen and (max-width: 768px) {
-        .main {
-            padding: 0.5rem;
-        }
-        
-        .metrics-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-        }
-
-        .stTextInput>div>div>input, 
-        .stNumberInput>div>div>input,
-        .stDateInput>div>div>input,
-        .stSelectbox>div>div>div,
-        .stRadio>div,
-        .stButton>button,
-        p, h1, h2, h3, h4, h5, h6,
-        div[data-testid="stMarkdownContainer"] p,
-         .metric-label,
-        .metric-value,
-        .stTab > div > div > div > div,
-        .stTab [data-testid="stMarkdownContainer"],
-        .stInfo > div,
-        .stSuccess > div {
-            color: #2c3e50 !important;
-            font-weight: normal !important;
-            background-color: transparent !important;
-        }
-        
-        /* Override dark mode text color */
-        .stApp {
-            color: #2c3e50 !important;
-        }
-        
-        /* Make metric cards stand out more */
-        .metric-card {
-            background: white !important;
-            padding: 1rem !important;
-            margin: 0.5rem 0 !important;
-        }
-        
-        /* Fix for radio buttons */
-        .stRadio > div {
-            background-color: white !important;
-            border-radius: 5px !important;
-            padding: 10px !important;
-        }
-        
-        /* Fix for radio button labels */
-        .stRadio label {
-            color: #2c3e50 !important;
-            font-weight: normal !important;
-        }
-        
-        /* Make card backgrounds white for contrast */
-        div.element-container {
-            background-color: white !important;
-            border-radius: 10px !important;
-            padding: 10px !important;
-            margin-bottom: 10px !important;
-        }
-        
-        /* Fix inputs */
-        input, textarea, select {
-            color: #2c3e50 !important;
-            background-color: white !important;
-        }
-    }
-
-    /* Fix for overlapping elements */
-    .stHorizontalBlock {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 0 !important;
-    }
-
-    .row-widget {
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Select box styling */
-    .stSelectbox > div > div:first-child {
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 4px;
-    }
-
-    /* SelectBox Selected Value */
-    .stSelectbox > div > div:first-child > div {
-        color: #2c3e50;
-        font-weight: normal;
-        font-size: 14px;
-    }
-
-    /* SelectBox Dropdown */
-    .stSelectbox > div > div:last-child {
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    /* SelectBox Options */
-    .stSelectbox > div > div:last-child > div > div {
-        color: #2c3e50;
-        font-size: 14px;
-    }
-
-    /* SelectBox Hover State */
-    .stSelectbox > div > div:first-child:hover {
-        border-color: #1f77b4;
-    }
-    
-    /* Input field styling */
+    /* Input fields */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
-        color: #2c3e50 !important;
-        background-color: white !important;
-        border: 1px solid #e0e0e0 !important;
-    }
-    
-    /* Dark mode adjustments */
-    @media (prefers-color-scheme: dark) {
-        .stSelectbox > div > div > div,
-        .stSelectbox [data-baseweb="select"] > div,
-        .stSelectbox [role="listbox"],
-        .stSelectbox [role="option"],
-        .stTextInput > div > div > input,
-        .stNumberInput > div > div > input,
-        .stDateInput > div > div > input {
-            background-color: white !important;
-            color: #2c3e50 !important;
-        }
-    }
-
-    /* Base styling for select boxes */
-    .stSelectbox [data-baseweb="select"] {
-        background-color: white !important;
-    }
-    
-    /* Selected value styling */
-    .stSelectbox [data-baseweb="select"] span {
-        color: #2c3e50 !important;
-        font-size: 1rem !important;
-        opacity: 1 !important;
-    }
-    
-    /* Dropdown container styling */
-    .stSelectbox [data-baseweb="popover"] {
-        background-color: white !important;
-        border: 1px solid #e0e0e0 !important;
-        border-radius: 5px !important;
-    }
-    
-    /* Dropdown options styling */
-    .stSelectbox [data-baseweb="menu"] {
-        background-color: white !important;
-    }
-    
-    .stSelectbox [role="option"] {
-        color: #2c3e50 !important;
-    }
-    
-    .stSelectbox [role="option"]:hover {
-        background-color: #f8f9fa !important;
-    }
-    
-    /* Fix for select box container */
-    .stSelectbox > div {
-        background-color: white !important;
-        border: 1px solid #e0e0e0 !important;
-        border-radius: 5px !important;
-    }
-    
-    /* Fix for placeholder and selected value */
-    .stSelectbox [data-baseweb="select"] div {
-        color: #2c3e50 !important;
-        opacity: 1 !important;
-    }
-    
-    /* Arrow icon color fix */
-    .stSelectbox [data-baseweb="icon"] svg {
-        fill: #2c3e50 !important;
-    }
-    
-    /* Dark mode overrides */
-    @media (prefers-color-scheme: dark) {
-        .stSelectbox [data-baseweb="select"],
-        .stSelectbox [data-baseweb="popover"],
-        .stSelectbox [data-baseweb="menu"],
-        .stSelectbox > div {
-            background-color: white !important;
-        }
-        
-        .stSelectbox [data-baseweb="select"] span,
-        .stSelectbox [role="option"],
-        .stSelectbox [data-baseweb="select"] div {
-            color: #2c3e50 !important;
-        }
-    }
-
-    /* Base select box styling */
-    .stSelectbox {
-        margin-bottom: 1rem;
-    }
-    
-    .stSelectbox > div {
-        background-color: white !important;
-    }
-    
-    .stSelectbox > div > div {
-        background-color: white !important;
-        color: #2c3e50 !important;
-    }
-    
-    /* Selected value styling */
-    .stSelectbox [data-baseweb="select"] {
-        background-color: white !important;
-        border: 1px solid #e0e0e0 !important;
+        border: 1px solid var(--border) !important;
         border-radius: 4px !important;
-        padding: 4px !important;
+        padding: 0.5rem 0.75rem !important;
+        background-color: var(--light) !important;
+        color: var(--primary) !important;
+        margin: 0.25rem 0 !important;
     }
     
-    .stSelectbox [data-baseweb="select"] span {
-        color: #2c3e50 !important;
-        opacity: 1 !important;
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus,
+    .stDateInput > div > div > input:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 1px var(--primary) !important;
     }
     
-    /* Dropdown styling */
-    .stSelectbox [role="listbox"] {
-        background-color: white !important;
-        border: 1px solid #e0e0e0 !important;
+    /* Button styling */
+    .stButton > button {
+        background-color: var(--primary) !important;
+        color: var(--light) !important;
+        border: none !important;
         border-radius: 4px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 600 !important;
+        margin: 0.5rem 0 !important;
     }
     
-    .stSelectbox [role="option"] {
-        color: #2c3e50 !important;
-        background-color: white !important;
+    .stButton > button:hover {
+        opacity: 0.9 !important;
     }
     
-    .stSelectbox [role="option"]:hover {
-        background-color: #f8f9fa !important;
+    /* Radio buttons */
+    .stRadio > div {
+        background-color: var(--light) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 4px !important;
+        padding: 0.5rem !important;
+        margin: 0.5rem 0 !important;
     }
     
-    /* Label styling */
-    .stSelectbox label {
-        color: #2c3e50 !important;
+    /* Sidebar styling */
+    .css-1d391kg, .css-12oz5g7 {
+        background: var(--light-gray) !important;
+        border-right: 1px solid var(--border) !important;
+        padding: 1rem 0.75rem !important;
+    }
+    
+    /* Tables and data frames */
+    .stDataFrame {
+        border: 1px solid var(--border) !important;
+        border-radius: 4px !important;
+        overflow: hidden !important;
+        margin: 0.75rem 0 !important;
+    }
+    
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0.5rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: var(--light) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 4px !important;
+        color: var(--primary) !important;
         font-weight: 500 !important;
+        padding: 0.5rem 1rem !important;
     }
     
-    /* Dark mode overrides */
-    @media (prefers-color-scheme: dark) {
-        .stSelectbox [data-baseweb="select"],
-        .stSelectbox [role="listbox"],
-        .stSelectbox [role="option"] {
-            background-color: white !important;
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: var(--light-gray) !important;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: var(--primary) !important;
+        color: var(--light) !important;
+        border: none !important;
+    }
+    
+    /* Info boxes */
+    .stInfo, .stSuccess, .stWarning, .stError {
+        background-color: var(--light-gray) !important;
+        border-left: 4px solid var(--primary) !important;
+        color: var(--primary) !important;
+        padding: 0.75rem !important;
+        margin: 0.5rem 0 !important;
+        border-radius: 4px !important;
+    }
+    
+    /* Progress bars */
+    .stProgress > div > div > div {
+        background-color: var(--primary) !important;
+    }
+    
+    /* Containers and spacing */
+    .element-container {
+        margin: 0.75rem 0 !important;
+    }
+    
+    .stMarkdown {
+        margin: 0.5rem 0 !important;
+    }
+    
+    /* Charts and visualizations */
+    .js-plotly-plot {
+        margin: 1rem 0 !important;
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background-color: var(--light) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 4px !important;
+        padding: 0.75rem !important;
+        margin: 0.25rem 0 !important;
+    }
+    
+    /* Mobile responsiveness */
+    @media screen and (max-width: 768px) {
+        .main {
+            padding: 0.5rem !important;
         }
         
-        .stSelectbox [data-baseweb="select"] span,
-        .stSelectbox [role="option"],
-        .stSelectbox label {
-            color: #2c3e50 !important;
+        .stTextInput > div > div > input, 
+        .stNumberInput > div > div > input,
+        .stDateInput > div > div > input,
+        .stSelectbox > div > div > div,
+        .stRadio > div,
+        .stButton > button {
+            width: 100% !important;
+            margin: 0.25rem 0 !important;
+            padding: 0.5rem !important;
+        }
+        
+        .metric-card {
+            margin: 0.5rem 0 !important;
+            padding: 0.5rem !important;
+        }
+        
+        h1 {
+            font-size: 1.25rem !important;
+            padding: 0.75rem 0 !important;
+        }
+        
+        h2 {
+            font-size: 1.1rem !important;
         }
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Helper Functions
 def set_category_budget(category, amount):
