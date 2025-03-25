@@ -2,5 +2,5 @@ streamlit==1.25.0
 pandas==1.5.3
 plotly==5.13.1
 fpdf==1.7.2
-pyyaml==6.0
+pyyaml==5.4.1
 bcrypt==4.0.1 
